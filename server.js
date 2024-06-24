@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 var bodyParser = require('body-parser');
-const port = process.env.PORT || 80; // Define the port for the server
+const port = process.env.PORT || 3000; // Define the port for the server
 const dbCommunicator = require('./db.js');
 // Mock Project Data
 
@@ -26,12 +26,24 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 //API to get all projects
+
+
 app.get('/api/projects', async (req, res) => {
-  console.log("Hello World");
   await dbComs.getProjects()
   .then(value => res.send(JSON.stringify(value)))
-  });
+});
 
+app.get('/api/project-detail', async(req, res) => {
+  const docID = req.query.docID;
+  if (!docID) {
+    return res.status(400).json({ error: 'docID is required' });
+  }
+
+  await dbComs.getSpecificProjects(docID)
+  .then(value => res.send(JSON.stringify(value)))
+
+
+});
 
 
 // server init
