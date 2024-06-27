@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 var bodyParser = require('body-parser');
-const port = process.env.PORT || 3000; // Define the port for the server
+const port = 80; // Define the port for the server
 const dbCommunicator = require('./db.js');
 // Mock Project Data
 
